@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 18px;
+            color: #555;
+        }
+        .topping-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .topping {
+            width: 45%;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .topping img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .topping input {
+            display: none;
+        }
+        .topping.selected {
+            border-color: #28a745;
+            background-color: #e9f7ef;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .styled-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+            appearance: none; /* Remove default arrow */
+            background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%23333" viewBox="0 0 16 16"%3E%3Cpath fill-rule="evenodd" d="M1.5 4.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-11zm1 0v11h11V4.5H2.5zM3 4h10v2H3V4zM3 7h10v2H3V7zM3 10h10v2H3v-2zM3 13h10v2H3v-2zM2.5 4h11V3H2.5v1z" /%3E%3C/svg%3E'); /* Custom arrow */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+        }
+
+        .styled-select:focus {
+            border-color: #28a745; /* Green border on focus */
+            outline: none;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+        .message {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form id="burgerForm">
+        <h1>Выберите начинку для бургера</h1>
+        
+        <label for="name">Имя:</label>
+        <select id="name" name="name" class="styled-select">
+            <option value="Tom">Том</option>
+            <option value="Ron">Рон</option>
+            <option value="Julia">Юлия</option>
+            <option value="Misha">Миша</option>
+            <option value="Liza">Лиза</option>
+            <option value="Felix">Феликс</option>
+        </select>
+
+        <div class="topping-container">
+            <div class="topping" data-topping="lettuce">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWOCfSt3selH_qL2S-7u5ZWmmIk9tlDkk5HA&s" alt="Lettuce">
+                <div>Жареные грибы</div>
+                <input type="checkbox" name="topping" value="mushrooms">
+            </div>
+            <div class="topping" data-topping="tomato">
+                <img src="https://thewoodenskillet.com/wp-content/uploads/2022/01/how-to-make-caramelized-onions-6-1067x1600.jpg" alt="Tomato">
+                <div>Жареный лук</div>
+                <input type="checkbox" name="topping" value="onion">
+            </div>
+            <div class="topping" data-topping="onion">
+                <img src="https://sundaysuppermovement.com/wp-content/uploads/2023/10/sauteed-peppers-and-onions-complete-1.jpg" alt="Onion">
+                <div>Жареный перец</div>
+                <input type="checkbox" name="topping" value="peppers">
+            </div>
+            <div class="topping" data-topping="cheese">
+                <img src="https://5.imimg.com/data5/WW/OQ/MY-1812882/jalapeno-pepper-slice-500x500.jpg" alt="Cheese">
+                <div>Острый перец</div>
+                <input type="checkbox" name="topping" value="hot_pepper">
+            </div>
+            <div class="topping" data-topping="bacon">
+                <img src="https://dfwblobstorage.blob.core.windows.net/ewcmediacontainer/eatwisconsincheese/media/content/cheesemasters-2019/gouda-header_2.jpg" alt="Bacon">
+                <div>Сыр Гауда</div>
+                <input type="checkbox" name="topping" value="gauda">
+            </div>
+            <div class="topping" data-topping="mushrooms">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjPgcsTUNVn4XiMBWMkAiV7dOu7l0BkPoT4w&s" alt="Mushrooms">
+                <div>Овечий сыр</div>
+                <input type="checkbox" name="topping" value="buche">
+            </div>
+            <div class="topping" data-topping="egg">
+                <img src="https://static01.nyt.com/images/2022/08/26/dining/kc-sunny-side-up-eggs/kc-sunny-side-up-eggs-square640.jpg" alt="Egg">
+                <div>Яичница</div>
+                <input type="checkbox" name="topping" value="eggs">
+            </div>
+            <div class="topping" data-topping="pickles">
+                <img src="https://www.wellplated.com/wp-content/uploads/2017/07/Teriyaki-Burgers-with-Grilled-Pineapple-recipe.jpg" alt="Pickles">
+                <div>Ананас</div>
+                <input type="checkbox" name="topping" value="ananas">
+            </div>
+        </div>
+
+        <button type="submit">Отправить Ицику</button>
+        <div class="message" id="message"></div>
+    </form> 
+</div>
+
+<script>
+    document.querySelectorAll('.topping').forEach(topping => {
+        topping.addEventListener('click', function() {
+            const checkbox = this.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            this.classList.toggle('selected', checkbox.checked);
+        });
+    });
+
+    const form = document.getElementById('burgerForm');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();  // Prevent default form submission
+
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch('https://formspree.io/f/xkgnnpav', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                messageDiv.textContent = 'Ваши данные отправлены успешно!';
+                form.reset(); // Reset the form after successful submission
+            } else {
+                messageDiv.textContent = 'Произошла ошибка при отправке.';
+            }
+        } catch (error) {
+            messageDiv.textContent = 'Произошла ошибка при отправке.';
+        }
+    });
+</script>
+
+</body>
+</html>
+
